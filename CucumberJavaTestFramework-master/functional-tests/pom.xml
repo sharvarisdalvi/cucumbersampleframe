@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <artifactId>functional-test</artifactId>
+    <packaging>jar</packaging>
+
+    <parent>
+        <groupId>org.tw</groupId>
+        <artifactId>CucumberJavaTestFramework</artifactId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.1</version>
+            </plugin>
+        </plugins>
+
+    </build>
+
+    <properties>
+        <cucumber.version>1.1.5</cucumber.version>
+        <api.client.version>1.0.116</api.client.version>
+        <selenium-version>2.37.1</selenium-version>
+        <maven.compiler.source>1.7</maven.compiler.source>
+        <maven.compiler.target>1.7</maven.compiler.target>
+    </properties>
+
+    <repositories>
+        <repository>
+            <id>codehaus</id>
+            <url>http://repository.codehaus.org/org/codehaus</url>
+        </repository>
+    </repositories>
+
+    <dependencies>
+        <dependency>
+            <groupId>${project.parent.groupId}</groupId>
+            <artifactId>test-core</artifactId>
+            <version>${project.parent.version}</version>
+        </dependency>
+    </dependencies>
+
+    <profiles>
+        <profile>
+            <id>integration-tests</id>
+
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+
+
+            <build>
+                <pluginManagement>
+                    <plugins>
+                        <plugin>
+                            <groupId>org.apache.maven.plugins</groupId>
+                            <artifactId>maven-surefire-plugin</artifactId>
+                            <version>2.17</version>
+                            <dependencies>
+                                <dependency>
+                                    <groupId>org.apache.maven.surefire</groupId>
+                                    <artifactId>surefire-junit47</artifactId>
+                                    <version>2.17</version>
+                                </dependency>
+                            </dependencies>
+                        </plugin>
+                        <plugin>
+                            <artifactId>maven-failsafe-plugin</artifactId>
+                            <version>2.16</version>
+                            <executions>
+                                <execution>
+                                    <goals>
+                                        <goal>integration-test</goal>
+                                        <goal>verify</goal>
+                                    </goals>
+                                </execution>
+                            </executions>
+                            <configuration>
+                                <skip>false</skip>
+                                <forkMode>always</forkMode>
+                            </configuration>
+                        </plugin>
+                    </plugins>
+                </pluginManagement>
+            </build>
+
+            <dependencies>
+                <dependency>
+                    <groupId>info.cukes</groupId>
+                    <artifactId>cucumber-picocontainer</artifactId>
+                    <version>1.1.6</version>
+                    <scope>test</scope>
+                </dependency>
+                <dependency>
+                    <groupId>info.cukes</groupId>
+                    <artifactId>cucumber-junit</artifactId>
+                    <version>1.1.6</version>
+                    <scope>test</scope>
+                </dependency>
+                <dependency>
+                    <groupId>org.picocontainer</groupId>
+                    <artifactId>picocontainer</artifactId>
+                    <version>2.14.3</version>
+                    <scope>test</scope>
+                </dependency>
+            </dependencies>
+        </profile>
+    </profiles>
+</project>
